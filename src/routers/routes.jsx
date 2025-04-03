@@ -1,16 +1,15 @@
-import {Routes,Route,BrowserRouter} from "react-router-dom";
-import { Login,Home } from "../index.js";
-
-
+import { Routes, Route, BrowserRouter } from "react-router-dom";
+import { Login, Home, ProtectedRoute, UserAuth } from "../index";
 export function MyRoutes() {
-    return(
-        <BrowserRouter>
-        <Routes>
-        <Route path="/asdsada" element={<Home />} />
-          <Route path="/" element={<Login />} />
-         
-        </Routes>
-          </BrowserRouter>
-    );
-
+  const { user } = UserAuth();
+  return (
+ 
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route element={<ProtectedRoute user={user} redirectTo="/login" />}>
+          <Route path="/" element={<Home />} />
+        </Route>
+      </Routes>
+  
+  );
 }
